@@ -63,4 +63,33 @@ class RangeTime extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public static function isTimeAvailable($weekday, $startTime, $endTime, $pharmacy, $user, $time)
+    {
+        $times = self::where('weekday', $weekday)
+            ->when($time, function ($query) use ($time) {
+                $query->where('id', '!=', $time);
+            })
+            ->where(function ($query) use ($pharmacy, $user) {
+                $query->where('pharmacy_id', $pharmacy)
+                    ->orWhere('user_id', $user);
+            })
+            ->where([
+                ['start_time', '<', $endTime],
+                ['end_time', '>', $startTime],
+            ])
+            ->count();
+
+        return !$times;
+    }
+    public function scopeCalendarByRoleOrClassId($query)
+    {
+        return $query->when(!request()->input('pharmacy_id'), function ($query) {
+            $query->when(auth()->user()->is_user, function ($query) {
+                $query->where('user_id', auth()->user()->id);
+            });      
+        })
+            ->when(request()->input('pharmacy_id'), function ($query) {
+                $query->where('pharmacy_id', request()->input('pharmacy_id'));
+            });
+    }
 }

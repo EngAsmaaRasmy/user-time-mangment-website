@@ -33,7 +33,7 @@ class PharmaciesController extends Controller
         return redirect()->route('admin.pharmacies.index');
     }
 
-    public function edit(Pharmacy $Pharmacy)
+    public function edit(Pharmacy $pharmacy)
     {
         abort_if(Gate::denies('pharmacy_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

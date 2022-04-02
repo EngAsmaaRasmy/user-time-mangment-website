@@ -3,11 +3,11 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.create') }} {{ trans('cruds.schoolClass.title_singular') }}
+        {{ trans('global.create') }} pharmacy
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.school-classes.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("admin.pharmacies.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="name">{{ trans('cruds.schoolClass.fields.name') }}</label>

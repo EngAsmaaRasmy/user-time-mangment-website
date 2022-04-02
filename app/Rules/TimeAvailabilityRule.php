@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\RangeTime;
 use Illuminate\Contracts\Validation\Rule;
 
-class LessonTimeAvailabilityRule implements Rule
+class TimeAvailabilityRule implements Rule
 {
     /**
      * Create a new rule instance.

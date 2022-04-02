@@ -12,7 +12,7 @@ class CalendarService
         $timeService  = new TimeService();
         $timeRange = $timeService->generateTimeRange(config('app.calendar.start_time'), config('app.calendar.end_time'));
         $times   = RangeTime::with('pharmacy', 'user')
-            // ->calendarByRoleOrClassId()
+            ->calendarByRoleOrClassId()
             ->get();
         foreach ($timeRange as $time) {
             $timeText = $time['start'] . ' - ' . $time['end'];

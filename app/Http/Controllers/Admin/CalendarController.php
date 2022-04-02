@@ -13,7 +13,6 @@ class CalendarController extends Controller
     {
         $weekDays     = RangeTime::WEEK_DAYS;
         $calendarData = $calendarService->generateCalendarData($weekDays);
-
         return view('admin.calendar', compact('weekDays', 'calendarData'));
     }
     public function search(Request $request)

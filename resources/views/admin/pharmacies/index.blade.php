@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-@can('school_class_create')
+@can('pharmacy_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route("admin.pharmacies.create") }}">
@@ -49,7 +49,7 @@
                                 {{ $pharmacy->name ?? '' }}
                             </td>
                             <td>
-                                <a href="{{ route('admin.calendar.index') }}?class_id={{ $pharmacy->id }}">View Schedule</a>
+                                <a href="{{ route('admin.calendar.index') }}?pharmacy_id={{ $pharmacy->id }}">View Schedule</a>
                             </td>
                             <td>
                                 @can('pharmacy_show')
@@ -94,7 +94,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.pharmacies .massDestroy') }}",
+    url: "{{ route('admin.pharmacies.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
