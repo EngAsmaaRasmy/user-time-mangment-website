@@ -58,7 +58,7 @@ class PharmaciesController extends Controller
 
     public function destroy(Pharmacy $pharmacy)
     {
-        abort_if(Gate::denies('school_class_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('pharmacy_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $pharmacy->delete();
 

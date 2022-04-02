@@ -15,7 +15,7 @@
                         <th>Search</th>
                     </thead>
                     <tbody>
-                        <form action="{{ route('admin.calendar.search') }}" method="POST">
+                        {{-- <form action="{{ route('admin.calendar.search') }}" method="POST">
                             <tr>
                                 <td>
                                     <div class='input-group date' id='datetimepicker'>
@@ -42,7 +42,7 @@
                                     <input type='submit' class="btn btn-primary time "  value="Search"/>
                                 </td>
                             </tr>
-                        </form>  
+                        </form>   --}}
                     </tbody>
                 </table>
                 <div class="card-body">
@@ -51,7 +51,6 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
                     <table class="table table-bordered">
                         <thead>
                             <th width="125" class="time">Time</th>
