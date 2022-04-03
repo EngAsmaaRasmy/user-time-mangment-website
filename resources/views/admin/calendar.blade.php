@@ -7,7 +7,20 @@
                 <div class="card-header">
                     <h4>Calendar</h4> 
                 </div>
-                <table class="table mt-3">
+                {{-- @can('lesson_create') --}}
+                        <div style="margin-bottom: 10px;" class="row">
+                            <div class="col-lg-12">
+                                <form method="POST" action="{{ route("admin.event") }}" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="table_id" value="{{$tableId}} "/>
+                                        <button class="btn btn-success"> 
+                                            {{ trans('global.add') }} Event 
+                                        </button>
+                                </form>
+                            </div>
+                        </div>
+                    {{-- @endcan --}}
+                {{-- <table class="table mt-3">
                     <thead>
                         <th>Start Time</th>
                         <th>End Time</th>
@@ -15,7 +28,7 @@
                         <th>Search</th>
                     </thead>
                     <tbody>
-                        {{-- <form action="{{ route('admin.calendar.search') }}" method="POST">
+                        <form action="{{ route('admin.calendar.search') }}" method="POST">
                             <tr>
                                 <td>
                                     <div class='input-group date' id='datetimepicker'>
@@ -42,9 +55,9 @@
                                     <input type='submit' class="btn btn-primary time "  value="Search"/>
                                 </td>
                             </tr>
-                        </form>   --}}
+                        </form>  
                     </tbody>
-                </table>
+                </table> --}}
                 <div class="card-body">
                     @if(session('status'))
                         <div class="alert alert-success" role="alert">
@@ -55,19 +68,20 @@
                         <thead>
                             <th width="125" class="time">Time</th>
                             @foreach($weekDays as $day)
-                                <th class="days">{{ $day }}</th>
+                                <th class="days">{{ $day}}</th>
                             @endforeach
                         </thead>
                         <tbody>
                             @foreach($calendarData as $time => $days)
                                 <tr>
                                     <td class="times">
-                                        {{ $time }}
+                                        {{ $time}}
                                     </td>
                                     @foreach($days as $value)
                                         @if (is_array($value))
                                             <td rowspan="{{ $value['rowspan'] }}" class="align-middle accent text-center">
-                                                  @can('show_user_name')
+                                                <div id='calendar'></div>
+                                                @can('show_user_name')
                                                   <p>{{ $value['user_name'] }}</p>
                                                   <br>
                                                   @endcan  
@@ -132,9 +146,6 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
 .accent:hover {
   transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
-
-
-
-
 </style>
+
 

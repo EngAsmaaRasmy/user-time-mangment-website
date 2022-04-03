@@ -17,7 +17,7 @@
                     <div class="col-md-12">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-3 statistis alert-success">
-                                <p style="font-size: 18px">Time Counts</p>
+                                <p style="font-size: 18px">Time Tables Counts</p>
                                 <h1 style="font-size: 40px">{{$times}}</h1>   
                             </div>
                             <div class="col-md-3 mx-5  statistis alert-info">
@@ -25,16 +25,20 @@
                                 <h1 style="font-size: 40px">{{$pharmacies}}</h1> 
                             </div>
                             <div class="col-md-3  statistis alert-primary">
-                                <p style="font-size: 18px">User Counts</p>
-                                <h1 style="font-size: 40px">{{$users}}</h1> 
+                                <p style="font-size: 18px">Even Counts</p>
+                                <h1 style="font-size: 40px">{{$events}}</h1> 
                             </div>
                         </div>
                         <div class="row d-flex justify-content-center mt-5">
+                            <div class="col-md-3  statistis alert-warning">
+                                <p style="font-size: 18px">User Counts</p>
+                                <h1 style="font-size: 40px">{{$users}}</h1> 
+                            </div>
                             <div class="col-md-3  statistis alert-secondary mx-5">
                                 <p style="font-size: 18px">Permission Counts</p>
                                 <h1 style="font-size: 40px">{{$permissions}}</h1> 
                             </div>
-                            <div class="col-md-3  statistis alert-danger mx-5">
+                            <div class="col-md-3  statistis alert-danger">
                                 <p style="font-size: 18px">Role Counts</p>
                                 <h1 style="font-size: 40px">{{$roles}}</h1> 
                             </div>

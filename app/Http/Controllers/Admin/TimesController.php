@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Pharmacy;
 use App\Models\RangeTime;
 use App\Models\User;
+use Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use App\Services\CalendarService;
+use Carbon\Carbon as CarbonCarbon;
 use Symfony\Component\HttpFoundation\Response;
 
 class TimesController extends Controller
@@ -25,18 +28,24 @@ class TimesController extends Controller
     {
         abort_if(Gate::denies('dataRange_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $pharmacies = Pharmacy::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.times.create', compact('pharmacies', 'users'));
+        return view('admin.times.create', compact('users'));
     }
 
     public function store(Request $request)
     {
-        $time = RangeTime::create($request->all());
-
-        return redirect()->route('admin.times.index');
+        if ($request->input('start_date') > $request->input('end_date')) {
+            toastr()->error('The start time is greater than the end time');
+            return redirect()->back();
+        } else {
+            $weekDays = RangeTime::getDatesFromRange($request->input('start_date'), $request->input('end_date'));
+            $time     = RangeTime::create($request->all());
+            $tableId   = $time->id;
+            toastr()->success('Time Table created Successfully');
+            $calendarData = CalendarService::generateCalendarData($weekDays);
+            return view('admin.calendar', compact('weekDays', 'calendarData', 'tableId'));
+        }
     }
 
     public function edit(RangeTime $time)

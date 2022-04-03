@@ -65,15 +65,36 @@
                 </li>
             @endcan
             @can('dataRange_access')
+            <li class="nav-item">
+                <a href="{{ route("admin.times.index") }}" class="nav-link {{ request()->is('admin/times') || request()->is('admin/times/*') ? 'active' : '' }}">
+                    <i class="fa-fw fas fa-clock nav-icon">
+
+                    </i>
+                    Time Tables
+                </a>
+            </li>
+            @endcan
+            {{-- @can('dataRange_access')
                 <li class="nav-item">
                     <a href="{{ route("admin.times.index") }}" class="nav-link {{ request()->is('admin/times') || request()->is('admin/times/*') ? 'active' : '' }}">
                         <i class="fa-fw fas fa-clock nav-icon">
 
                         </i>
-                        Times
+                       Add Time Table
                     </a>
                 </li>
-            @endcan
+            @endcan --}}
+            @can('dataRange_access')
+            <li class="nav-item">
+                <a href="{{ route("admin.events.index") }}" class="nav-link {{ request()->is('admin/events') || request()->is('admin/events/*') ? 'active' : '' }}">
+                    <i class="fa-fw fas fa-clock nav-icon">
+
+                    </i>
+                   Events
+                </a>
+            </li>
+        @endcan
+        @can('user_calender')
             <li class="nav-item">
                 <a href="{{ route("admin.calendar.index") }}" class="nav-link {{ request()->is('admin/calendar') || request()->is('admin/calendar/*') ? 'active' : '' }}">
                     <i class="fa-fw fas fa-calendar nav-icon">
@@ -82,6 +103,7 @@
                     Calendar
                 </a>
             </li>
+        @endcan
             <li class="nav-item">
                 <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                     <i class="nav-icon fas fa-fw fa-sign-out-alt">

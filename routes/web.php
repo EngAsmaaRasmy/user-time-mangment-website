@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CalendarController;
+use App\Http\Controllers\Admin\EventsController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\PharmaciesController;
@@ -52,10 +53,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::delete('times/destroy', [TimesController::class, 'massDestroy'])->name('times.massDestroy');
     Route::resource('times', TimesController::class);
 
+     // Events
+     Route::delete('events/destroy', [EventsController::class, 'massDestroy'])->name('events.massDestroy');
+     Route::resource('events', EventsController::class);
+
     // Pharmacies
     Route::delete('pharmacies/destroy', [PharmaciesController::class, 'massDestroy'])->name('pharmacies.massDestroy');
     Route::resource('pharmacies', PharmaciesController::class);
 
     Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
+    Route::post('event', [CalendarController::class, 'createEvent'])->name('event');
+    Route::post('createEvent', [CalendarController::class, 'store'])->name('storeEvent');
+    // Route::resource('createEvents', CalendarController::class);
     Route::post('search', [CalendarController::class, 'search'])->name('calendar.search');
 });

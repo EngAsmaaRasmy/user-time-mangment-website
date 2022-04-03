@@ -3,13 +3,13 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('global.show') }} Time
+        {{ trans('global.show') }} Event
     </div>
 
     <div class="card-body">
         <div class="form-group">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.times.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.events.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>
@@ -20,7 +20,7 @@
                            ID
                         </th>
                         <td>
-                            {{ $time->id }}
+                            {{ $event->id }}
                         </td>
                     </tr>
                     <tr>
@@ -28,7 +28,7 @@
                             Pharmacy
                         </th>
                         <td>
-                            {{ $time->pharmacy->name ?? '' }}
+                            {{ $event->pharmacy->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -36,15 +36,7 @@
                             User
                         </th>
                         <td>
-                            {{ $time->user->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Weekday
-                        </th>
-                        <td>
-                            {{ $time->weekday }}
+                            {{ $event->table->user->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -52,7 +44,7 @@
                             Start Time
                         </th>
                         <td>
-                            {{ $time->start_time }}
+                            {{ $event->start_time }}
                         </td>
                     </tr>
                     <tr>
@@ -60,13 +52,13 @@
                             End Date
                         </th>
                         <td>
-                            {{ $time->end_time }}
+                            {{ $event->end_time }}
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.times.index') }}">
+                <a class="btn btn-default" href="{{ route('admin.events.index') }}">
                     {{ trans('global.back_to_list') }}
                 </a>
             </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRangeTimesTable extends Migration
+class CreateEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateRangeTimesTable extends Migration
      */
     public function up()
     {
-        Schema::create('range_times', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->integer('user_id');
+            $table->string('pharmacy_id');
+            $table->integer('table_id');
+            $table->string('weekday');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateRangeTimesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('range_times');
+        Schema::dropIfExists('events');
     }
 }

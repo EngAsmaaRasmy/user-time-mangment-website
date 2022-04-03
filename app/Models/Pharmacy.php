@@ -16,7 +16,7 @@ class Pharmacy extends Model
     ];
     public function pharmacyTimes()
     {
-        return $this->hasMany(RangeTime::class, 'pharmacy_id', 'id');
+        return $this->hasMany(Event::class, 'pharmacy_id', 'id');
     }
 
     public function pharmacyUsers()

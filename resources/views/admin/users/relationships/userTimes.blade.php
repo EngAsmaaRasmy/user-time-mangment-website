@@ -25,19 +25,16 @@
                             ID
                         </th>
                         <th>
-                            Pharmacy
-                        </th>
-                        <th>
                             User
                         </th>
                         <th>
-                            Weekday
+                            Start Date
                         </th>
                         <th>
-                            Start Time
+                            End Date
                         </th>
                         <th>
-                            {{ trans('cruds.lesson.fields.end_time') }}
+                            Schedule
                         </th>
                         <th>
                             &nbsp;
@@ -46,49 +43,31 @@
                 </thead>
                 <tbody>
                     @foreach($times as $key => $time)
-                        <tr data-entry-id="{{ $lesson->id }}">
+                        <tr data-entry-id="{{ $time->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $lesson->id ?? '' }}
+                                {{ $time->id ?? '' }}
                             </td>
                             <td>
-                                {{ $lesson->class->name ?? '' }}
+                                {{ $time->user->name ?? '' }}
                             </td>
                             <td>
-                                {{ $lesson->teacher->name ?? '' }}
+                                {{ $time->start_date ?? '' }}
                             </td>
                             <td>
-                                {{ $lesson->weekday ?? '' }}
+                                {{ $time->end_date ?? '' }}
                             </td>
                             <td>
-                                {{ $lesson->start_time ?? '' }}
-                            </td>
-                            <td>
-                                {{ $lesson->end_time ?? '' }}
-                            </td>
-                            <td>
-                                @can('lesson_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.lessons.show', $lesson->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-
-                                @can('lesson_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.lessons.edit', $lesson->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-
-                                @can('lesson_delete')
-                                    <form action="{{ route('admin.lessons.destroy', $lesson->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                <a>
+                                    <form action="{{ route('admin.calendar.index') }}?user_id={{ $time->user->id }}">
+                                        <input type="hidden" name="start_date" value="{{ $time->start_date}}">
+                                        <input type="hidden" name="end_date" value="{{ $time->end_date}}">
+                                        <input type="hidden" name="table_id" value="{{ $time->id}}">
+                                        <input class="btn btn-primary" type="submit" value="View Schedule"/>
                                     </form>
-                                @endcan
-
+                                </a>
                             </td>
 
                         </tr>

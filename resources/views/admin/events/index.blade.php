@@ -1,32 +1,35 @@
 @extends('layouts.admin')
 @section('content')
-@can('pharmacy_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.pharmacies.create") }}">
-                {{ trans('global.add') }} Pharmacy
-            </a>
-        </div>
-    </div>
-@endcan
 <div class="card">
     <div class="card-header">
-        Pharmacy {{ trans('global.list') }}
+        Events {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-pharmacy">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-time">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            ID
+                           ID
                         </th>
                         <th>
-                           Name
+                           Pharmacy
+                        </th>
+                        <th>
+                            Table
+                        </th>
+                        <th>
+                            User
+                        </th>
+                        <th>
+                            Start Time
+                        </th>
+                        <th>
+                            End Time
                         </th>
                         <th>
                             &nbsp;
@@ -34,32 +37,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($pharmacies as $key => $pharmacy)
-                        <tr data-entry-id="{{ $pharmacy->id }}">
+                    @foreach($events as $key => $event)
+                        <tr data-entry-id="{{ $event->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $pharmacy->id ?? '' }}
+                                {{ $event->id ?? '' }}
                             </td>
                             <td>
-                                {{ $pharmacy->name ?? '' }}
+                                {{ $event->pharmacy->name ?? '' }}
                             </td>
                             <td>
-                                @can('pharmacy_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.pharmacies.show', $pharmacy->id) }}">
+                                {{ $event->table->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $event->table->user->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $event->start_time ?? '' }}
+                            </td>
+                            <td>
+                                {{ $event->end_time ?? '' }}
+                            </td>
+                            <td>
+                                @can('dataRange_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.events.show', $event->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('pharmacy_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.pharmacies.edit', $pharmacy->id) }}">
+                                @can('dataRange_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.events.edit', $event->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('pharmacy_delete')
-                                    <form action="{{ route('admin.pharmacies.destroy', $pharmacy->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('dataRange_delete')
+                                    <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -84,11 +99,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('pharmacy_delete')
+@can('dataRange_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.pharmacies.massDestroy') }}",
+    url: "{{ route('admin.times.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -118,7 +133,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  $('.datatable-pharmacy:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  $('.datatable-time:not(.ajaxTable)').DataTable({ buttons: dtButtons })
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
         $($.fn.dataTable.tables(true)).DataTable()
             .columns.adjust();

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             PharmaciesTableSeeder::class,
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
-            TimeRangesTableSeeder::class,
+            // TimeRangesTableSeeder::class,
         ]);
     }
 }

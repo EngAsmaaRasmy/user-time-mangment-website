@@ -4,14 +4,14 @@
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn btn-success" href="{{ route("admin.times.create") }}">
-                {{ trans('global.add') }} Time
+               Add Time Table
             </a>
         </div>
     </div>
 @endcan
 <div class="card">
     <div class="card-header">
-        Time Ranges {{ trans('global.list') }}
+        Time Tables {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
@@ -26,22 +26,16 @@
                            ID
                         </th>
                         <th>
-                           Pharmacy
-                        </th>
-                        <th>
                             User
                         </th>
                         <th>
-                            Weekday
+                            Start Date
                         </th>
                         <th>
-                            Start Time
+                            End Date
                         </th>
                         <th>
-                            End Time
-                        </th>
-                        <th>
-                            &nbsp;
+                            Schedule
                         </th>
                     </tr>
                 </thead>
@@ -55,41 +49,23 @@
                                 {{ $time->id ?? '' }}
                             </td>
                             <td>
-                                {{ $time->pharmacy->name ?? '' }}
-                            </td>
-                            <td>
                                 {{ $time->user->name ?? '' }}
                             </td>
                             <td>
-                                {{ $time->weekday ?? '' }}
+                                {{ $time->start_date ?? '' }}
                             </td>
                             <td>
-                                {{ $time->start_time ?? '' }}
+                                {{ $time->end_date ?? '' }}
                             </td>
                             <td>
-                                {{ $time->end_time ?? '' }}
-                            </td>
-                            <td>
-                                @can('dataRange_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.times.show', $time->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-
-                                @can('dataRange_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.times.edit', $time->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-
-                                @can('dataRange_delete')
-                                    <form action="{{ route('admin.times.destroy', $time->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                <a>
+                                    <form action="{{ route('admin.calendar.index') }}?user_id={{ $time->user->id }}">
+                                        <input type="hidden" name="start_date" value="{{ $time->start_date}}">
+                                        <input type="hidden" name="end_date" value="{{ $time->end_date}}">
+                                        <input type="hidden" name="table_id" value="{{ $time->id}}">
+                                        <input class="btn btn-primary" type="submit" value="View Schedule"/>
                                     </form>
-                                @endcan
-
+                                </a>
                             </td>
 
                         </tr>
@@ -99,8 +75,6 @@
         </div>
     </div>
 </div>
-
-
 
 @endsection
 @section('scripts')
