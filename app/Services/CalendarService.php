@@ -11,7 +11,7 @@ class CalendarService
         $calendarData = [];
         $timeService  = new TimeService();
         $timeRange = $timeService->generateTimeRange(config('app.calendar.start_time'), config('app.calendar.end_time'));
-        $times   = Event::with('pharmacy', 'table')
+        $times   = Event::with('pharmacy')
             ->calendarByRoleOrClassId()
             ->get();
         foreach ($timeRange as $time) {

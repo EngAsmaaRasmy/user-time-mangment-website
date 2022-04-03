@@ -17,6 +17,7 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('pharmacy_id');
             $table->integer('table_id');
+            $table->integer('user_id')->nullable();
             $table->string('weekday');
             $table->time('start_time');
             $table->time('end_time');

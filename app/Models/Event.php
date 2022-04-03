@@ -13,6 +13,7 @@ class Event extends Model
     protected $fillable = [
         'end_time',
         'table_id',
+        'user_id',
         'start_time',
         'weekday',
         'pharmacy_id',

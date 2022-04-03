@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 
 class CalendarController extends Controller
 {
+    public function userCalendar(CalendarService $calendarService)
+    {
+        $time  =  RangeTime::where('user_id', auth()->user()->id)->first();
+        $weekDays = $time->getDatesFromRange($time->start_date, $time->end_date);
+        $calendarData = $calendarService->generateCalendarData($weekDays);
+        return view('admin.userCalendar', compact('weekDays', 'calendarData'));
+    }
     public function index(Request $request, CalendarService $calendarService)
     {
         $weekDays = RangeTime::getDatesFromRange($request->input('start_date'), $request->input('end_date'));
@@ -18,11 +25,11 @@ class CalendarController extends Controller
         $calendarData = $calendarService->generateCalendarData($weekDays);
         return view('admin.calendar', compact('weekDays', 'calendarData', 'tableId'));
     }
-    public function search(Request $request)
+    public function search(Request $request, CalendarService $calendarService)
     {
-        $input = $request->all();
-        // dd($input);
-        // return view('admin.calendar', compact('weekDays', 'calendarData'));
+        $weekDays = RangeTime::getDatesFromRange($request->input('start_date'), $request->input('end_date'));
+        $calendarData = $calendarService->generateCalendarData($weekDays);
+        return view('admin.userCalendar', compact('weekDays', 'calendarData'));
     }
     public function createEvent(Request $request)
     {
@@ -35,6 +42,8 @@ class CalendarController extends Controller
     public function store(Request $request)
     {
         $event = Event::create($request->all());
+        $event->user_id = $event->table->id;
+        $event->save();
         return redirect()->route("admin.events.index");
     }
 

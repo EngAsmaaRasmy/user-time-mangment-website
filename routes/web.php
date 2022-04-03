@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::redirect('/', '/login');
 Route::get('/home', function () {
-    $routeName = auth()->user() && (auth()->user()->is_user) ? 'admin.calendar.index' : 'admin.home';
+    $routeName = auth()->user() && (auth()->user()->is_user) ? 'admin.userCalendar.index' : 'admin.home';
     if (session('status')) {
         return redirect()->route($routeName)->with('status', session('status'));
     }
@@ -62,6 +62,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('pharmacies', PharmaciesController::class);
 
     Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
+    Route::get('user-calendar', [CalendarController::class, 'userCalendar'])->name('userCalendar.index');
     Route::post('event', [CalendarController::class, 'createEvent'])->name('event');
     Route::post('createEvent', [CalendarController::class, 'store'])->name('storeEvent');
     // Route::resource('createEvents', CalendarController::class);
